@@ -11,16 +11,19 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
   if (err) throw err;
-  
 });
+
+
 //DISPLAY DATABASE
 function displayProducts() {
     connection.query("SELECT * FROM products", function(err, res){
         if(err) throw err;
+        startShopping();
+
     });
 }
 //PROMPT USER TO ENTER ID AND QUANTITY
-function promptUsers() {
+function startShopping() {
   inquirer
     .prompt({
       name: "id",
@@ -47,57 +50,26 @@ function promptUsers() {
               " || Quantity: " +
               res[i].stock_quantity
           );
+          if (res[i].stock_quantity >= answer.quantity) {
+              var deductItem = res[i].stock_quantity - answer.quantity;
+              connection.query("UPDATE products SET? WHERE ?",
+            [{ 
+              stock_quantity: deductItem 
+            },{
+              item_id: answer.id
+               
+            }], function(err,res) {
+
+            });
+             
+             var itemCost = res[i].price * answer.quantity;
+             console.log("Order completed! $ " + itemCost.toFixed(2));
+            }else{
+                console.log("unable to complete order, Insufficient quantity");
+        
+          }
         }
-        promptUsers();
+        displayProducts();
       });
     });
 }
-
-
-
-function promptUsers() {
-  inquirer
-    .prompt([
-      {
-        name: "Id",
-        type: "input",
-        message: "What is the ID of the product you would like to buy? ",
-        validate: function(value) {
-          if (isNaN(value) === false) {
-            return true;
-          }
-          return false;
-        }
-      },
-      {
-        name: "quantity",
-        type: "input",
-        message: "how many units of the product would you like to buy? ",
-        validate: function(value) {
-          if (isNaN(value) === false) {
-            return true;
-          }
-          return false;
-        }
-      }
-    ])
-    .then(function(answer) {
-      var query = "SELECT position,song,artist,year FROM top5000 WHERE position BETWEEN ? AND ?";
-      connection.query(query, [answer.start, answer.end], function(err, res) {
-        for (var i = 0; i < res.length; i++) {
-          console.log(
-            "Position: " +
-              res[i].position +
-              " || Song: " +
-              res[i].song +
-              " || Artist: " +
-              res[i].artist +
-              " || Year: " +
-              res[i].year
-          );
-        }
-        runSearch();
-      });
-    });
-}
-

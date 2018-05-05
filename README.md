@@ -2,13 +2,13 @@
 
 ## Overview
 This application uses Node.js and MySQL to display items that are available for sale and includes ids, product names, prices, and quantity. The application
-prompts the user to enter the id of products that they are interested in buying and the quantity amount that they would like for the item.
-After the application has recive customer input it will run a search to see if request can be met.
+prompts the customer to enter the id of products that they are interested in buying and the quantity amount that they would like to purchase.
+After the application has receive the customer input it will run a search to see if request can be met.
 
 ## Getting Started
     * Clone Repo
     * In Terminal us command line to find file name Amazon-like-storefront-with-Node.js-MySQL
-    * Once inside file run command node to use application
+    * Once inside file run command node bamazonCustomer.js
     * The following data should appear
 
 | department_id | product_name         | department_name | price   | stock_quantity |

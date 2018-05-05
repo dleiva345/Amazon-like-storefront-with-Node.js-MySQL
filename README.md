@@ -7,7 +7,7 @@ After the application has receive the customer input it will run a search to see
 
 ## Getting Started
     * Clone Repo
-    * In Terminal us command line to find file name Amazon-like-storefront-with-Node.js-MySQL
+    * In Terminal use command line to find file name Amazon-like-storefront-with-Node.js-MySQL
     * Once inside file run command node bamazonCustomer.js
     * The following data should appear
 

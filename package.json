@@ -1,0 +1,19 @@
+{
+  "name": "amazon-like-storefront-with-node.js-mysql",
+  "version": "1.0.0",
+  "description": "Amazon-like store front",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dleiva345/Amazon-like-storefront-with-Node.js-MySQL.git"
+  },
+  "author": "Debbie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dleiva345/Amazon-like-storefront-with-Node.js-MySQL/issues"
+  },
+  "homepage": "https://github.com/dleiva345/Amazon-like-storefront-with-Node.js-MySQL#readme"
+}

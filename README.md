@@ -1,4 +1,5 @@
 # Amazon-like-storefront-with-Node.js-MySQL
+<<<<<<< HEAD
 
 ##Overview
 This application displays items that are available for sale by including ids, product names, prices, and quantity. The application
@@ -14,3 +15,5 @@ After the application has recive user input it will run a search to fufill if re
 *Node.Js
 *Inquirer NPM Package
 *Mysql NPM Package 
+=======
+>>>>>>> 6cf1d28ee43205299d810a89073cd745e2747b46

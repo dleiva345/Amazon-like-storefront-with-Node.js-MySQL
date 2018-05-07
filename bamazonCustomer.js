@@ -6,70 +6,69 @@ var connection = mysql.createConnection({
   port: 3306,
   user: "root",
   password: "",
-  database: "bamazon_DB"
-});
-
-connection.connect(function(err) {
-  if (err) throw err;
+  database: "bam_db"
 });
 
 
-//DISPLAY DATABASE
-function displayProducts() {
-    connection.query("SELECT * FROM products", function(err, res){
-        if(err) throw err;
-        startShopping();
+var makePurchase = function() {
+    connection.query('SELECT * FROM products', function(err, res) {
+       
 
-    });
-}
-//PROMPT USER TO ENTER ID AND QUANTITY
-function startShopping() {
-  inquirer
-    .prompt({
-      name: "id",
-      type: "input",
-      message: "What is the ID of the product you would like to buy?",
-    }, {  
-       name: "quantity",
-       type: "input",
-       message: "how many units of the product would you like to buy?", 
-    })
-    .then(function(answer) {
-      var query = "SELECT product_name, department_name, price, stock_quantity FROM products WHERE ?";
-      connection.query(query, { item_id: answer.id }, function(err, res) {
+        //DISPLAYS ALL ITEMS FOR SALE 
+        console.log("ITEMS AVAILABLE: ");
         for (var i = 0; i < res.length; i++) {
-          console.log(
-              "ID: " + 
-              res[i].item_id + 
-              " || Product Name: " +
-              res[i].product_name  + 
-              " || Department Name: " +
-              res[i].department_name  + 
-              " || Price: " + 
-              res[i].price +
-              " || Quantity: " +
-              res[i].stock_quantity
-          );
-          if (res[i].stock_quantity >= answer.quantity) {
-              var deductItem = res[i].stock_quantity - answer.quantity;
-              connection.query("UPDATE products SET? WHERE ?",
-            [{ 
-              stock_quantity: deductItem 
-            },{
-              item_id: answer.id
-               
-            }], function(err,res) {
-
-            });
-             
-             var itemCost = res[i].price * answer.quantity;
-             console.log("Order completed! $ " + itemCost.toFixed(2));
-            }else{
-                console.log("unable to complete order, Insufficient quantity");
-        
-          }
+                  console.log([res[i].item_id, 
+                   res[i].product_name, 
+                   res[i].department_name,  
+                   res[i].Price,  
+                   res[i].stock_quantity]);
         }
-        displayProducts();
-      });
-    });
+        console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+        inquirer.prompt([{
+            name: "Id",
+            type: "input",
+            message: "What is the item ID you would like to buy?",
+            validate: function(value) {
+                if (isNaN(value) == false) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        
+        }, {
+            name: "Quantity",
+            type: "input",
+            message: "How many of this item would you like to buy?",
+            validate: function(value) {
+                if (isNaN(value) == false) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }]).then(function(answer) {
+            var answerId = answer.Id - 1
+            var answerProduct = res[answerId]
+            var answerQuantity = answer.Quantity
+            if (answerQuantity < res[answerId].stock_quantity) {
+                console.log("Your total for " + "(" + answer.Quantity + ")" + " - " + res[answerId].product_name + " is: " + res[answerId].Price * answerQuantity);
+                connection.query("UPDATE products SET ? WHERE ?", [{
+                    stock_quantity: res[answerId].stock_quantity - answerQuantity
+                }, {
+                    id: res[answerId].id
+                }], function(err, res) {
+                    //console.log(err);
+                    makePurchase();
+                });
+
+            } else {
+                console.log("Insufficient Quanity at this time. All we have is " + res[answerId].stock_quantity);
+                makePurchase();
+            }
+        })
+    })
 }
+
+makePurchase();

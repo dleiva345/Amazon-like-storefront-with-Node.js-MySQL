@@ -20,8 +20,9 @@ var makePurchase = function() {
                   console.log([res[i].item_id, 
                    res[i].product_name, 
                    res[i].department_name,  
-                   res[i].Price,  
+                   res[i].price,  
                    res[i].stock_quantity]);
+                   
         }
         console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
@@ -51,9 +52,10 @@ var makePurchase = function() {
         }]).then(function(answer) {
             var answerId = answer.Id - 1
             var answerProduct = res[answerId]
-            var answerQuantity = answer.Quantity
+            var answerQuantity = answer.Quantity; 
+                console.log(typeof answerQuantity);
             if (answerQuantity < res[answerId].stock_quantity) {
-                console.log("Your total for " + "(" + answer.Quantity + ")" + " - " + res[answerId].product_name + " is: " + res[answerId].Price * answerQuantity);
+                console.log("Total for " + "(" + answer.Quantity + ")" + " - " + res[answerId].product_name + " is: " + res[answerId].price * answerQuantity);
                 connection.query("UPDATE products SET ? WHERE ?", [{
                     stock_quantity: res[answerId].stock_quantity - answerQuantity
                 }, {

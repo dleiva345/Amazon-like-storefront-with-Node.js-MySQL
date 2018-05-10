@@ -9,21 +9,17 @@ After the application has receive the customer input it will run a search to see
     * Clone Repo
     * In Terminal use command line to find file name Amazon-like-storefront-with-Node.js-MySQL
     * Once inside file run command node bamazonCustomer.js
-    * The following data should appear
+   
+     * customer would then be prompted to answer the following questions: 
+        * What is the ID of the product you would like to buy?
+        * how many units of the product would you like to buy? 
+        
 ![captureitemid](https://user-images.githubusercontent.com/32282229/39898744-2e653770-5486-11e8-94cb-2392c04c68bb.PNG)
 
 
+![capturehowmany](https://user-images.githubusercontent.com/32282229/39898883-e234557e-5486-11e8-8828-21b376de83b9.PNG)
 
-| department_id | product_name         | department_name | price   | stock_quantity |
-| ------------- | ---------------      | --------------- | ------- | ------------   |
-| 01            | NYX LIQUID EYE LINER | BEAUTY          | 10.00   | 200            |
-| 02            | TOOTHPASTE           | PRARMACY        | 6.00    | 30             |
-
-    * customer would then be prompted to answer the following questions: 
-        * What is the ID of the product you would like to buy?
-        * how many units of the product would you like to buy? 
-
-After customer has answer the questions the application will check if store has enough of the product to meet the customer's request and will estimate cost and update SQL database to update quantity.
+After customer has answer the questions the application will check if store has enough of the product to meet the customer's request and will estimate quantity total
 If not, the application will log a phrase `Insufficient quantity!`, and prevent the order from going through.
 
 ## Technologie Used

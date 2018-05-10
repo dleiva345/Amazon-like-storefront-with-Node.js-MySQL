@@ -10,6 +10,9 @@ After the application has receive the customer input it will run a search to see
     * In Terminal use command line to find file name Amazon-like-storefront-with-Node.js-MySQL
     * Once inside file run command node bamazonCustomer.js
     * The following data should appear
+![captureitemid](https://user-images.githubusercontent.com/32282229/39898744-2e653770-5486-11e8-94cb-2392c04c68bb.PNG)
+
+
 
 | department_id | product_name         | department_name | price   | stock_quantity |
 | ------------- | ---------------      | --------------- | ------- | ------------   |
